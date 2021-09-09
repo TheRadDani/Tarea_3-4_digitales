@@ -4,9 +4,12 @@ output reg [0:1] data_in1,
 output reg clk,
 output reg [0:1] gnd,
 output reg reset_L,
+output reg selector,
 input data_out_c,
-input data_out_e,
+input data_out_e
 );    
+reg [5:0] contador_e;
+reg [5:0] contador_c;
 initial begin
     $dumpfile("test_2.vcd");	// Nombre de .vcd a graficar
 	$dumpvars;
@@ -16,7 +19,7 @@ initial begin
     $monitor($time,"\t\t%b\t%b\t\t%b\t%b\t%b\t%b", data_in0,data_in1,clk,reset_L,data_out_c,data_out_e); 
     {data_in0,data_in1}<= 2'b00; //valor inicial de datos de entradas
     reset_L<=0;    //valor por defecto de entrada selector
-    selector<=0; //asignacion bloqueante asincronica
+    selector <= 0; //asignacion bloqueante asincronica
     gnd=2'b00;
     repeat (3) begin //repetir prueba 3 ciclos de reloj
     @(posedge clk);
@@ -66,25 +69,31 @@ initial begin
     @(posedge clk)
     data_in0 <= 2'b01;
     data_in1 <= 2'b01;
-    reset_L<=0;
+
     $finish;			// Termina de almacenar se�ales
 end
 //contador
 /*always @(posedge data_out_c)begin
-    contador_c= data_out_c + 1;
+    if(reset_L==0) 
+        contador_c<=0;
+    else
+        contador_c <= contador_c+ 1;
 end
 always @(posedge data_out_e)begin
-    contador_e= data_out_e+ 1;
+    if(reset_L==0) 
+        contador_e<=0;
+    else
+        contador_e <= contador_e+ 1;
 end*/
 
 //checker
 /*always @(posedge clk)begin
     if(data_out_c != data_out_e)begin
-        check=1;
+        check++;
     end
         
 end*/
     // Reloj
 	initial	clk 	<= 0;			// Valor inicial al relo
-	always	#2 clk 	<= ~clk;		//invertido cada 2*10ns
+	always	#20 clk 	<= ~clk;		//invertido cada 20*10ns
 endmodule

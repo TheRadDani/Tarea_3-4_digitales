@@ -7,11 +7,12 @@ module mux_estructural(
     input [1:0] data_in0,//entradad de datos 0
     input [1:0] data_in1,//entrada de datos 1
     input [0:1] gnd,
-    output reg [1:0] data_out_e//salida como bus de dos bits
+    output [1:0] data_out_e//salida como bus de dos bits
 );
-reg [1:0] x;
-reg [1:0] D;
-mux_2b MUX1(.data_in0 (data_in0), .data_in1(data_in1), .selector(selector), .data_out_e(x));
-mux_2b MUX2(.gnd (gnd), .gnd(x), .reset_L(reset_L), .data_out_e(D));
-flip_flop ff(.gnd(D),.clk(clk),.data_out_e(data_out_e));
+wire [1:0] om;
+wire [1:0] Dn;
+mux_2b mux0(.mux2_in_0 (data_in0), .mux2_in_1(data_in1), .selector(selector), .mux2_out(om));
+mux_2b mux1(.mux2_in_0 (gnd), .mux2_in_1(om), .reset_L(reset_L), .mux2_out(Dn));
+flip_flop ff0(.D(Dn[0]),.clk(clk),.Q(data_out_e[1]));
+flip_flop ff1(.D(Dn[1]),.clk(clk),.Q(data_out_e[1]));
 endmodule

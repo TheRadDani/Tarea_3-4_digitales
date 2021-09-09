@@ -5,7 +5,9 @@
 `include "test_bench_1"
 module Banco_Pruebas_1;
 	wire A,B,clk,selector,out_mux1b,out_and_gate,out_not_gate,out_or_gate,Q;
-    wire [0:1] mux2_out,[0:1] mux2_in_0,[0:1] mux2_in_1;
+    wire [0:1] mux2_out;
+    wire [0:1] mux2_in_0;
+    wire[0:1] mux2_in_1;
 and_gate and(/*AUTOINST*/);
 or_gate or(/*AUTOINST*/);
 not_gate not(/*AUTOINST*/);

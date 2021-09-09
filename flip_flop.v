@@ -1,4 +1,5 @@
-module flip_flop(input D,clk,output reg Q);
+`timescale 1ns/100ps
+module flip_flop(input D,input clk,output reg Q);
     always @(posedge clk) 
         #15 Q <= D;
 endmodule
