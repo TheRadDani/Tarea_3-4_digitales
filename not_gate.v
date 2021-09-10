@@ -1,4 +1,4 @@
-module not_gate(output out_not_gate, input A);
+module not_gate(input A,output out_not_gate);
     //assign #() 
     assign #(1:2:3,1:2:3) out_not_gate = ~A;
 endmodule
